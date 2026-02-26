@@ -13,11 +13,13 @@ class ForecastInfo(QFrame):
 
         self.scroll_element = QScrollArea(self)
         self.scroll_element.setWidgetResizable(True)
+        self.scroll_element.setStyleSheet("background-color: transparent;")
         self.main_layout.addWidget(self.scroll_element)
         self.scroll_element.setFixedSize(790, 157)
         self.scroll_element.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         
         self.scroll_frame = QFrame()
+        self.scroll_frame.setStyleSheet("background-color: transparent;")
 
         self.forecast_layout = QHBoxLayout()
         self.scroll_frame.setLayout(self.forecast_layout)

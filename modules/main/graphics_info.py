@@ -22,6 +22,7 @@ class GraphicsInfo(QFrame):
             self.main_layout.addWidget(frame, alignment=Qt.AlignmentFlag.AlignBottom)
             
         self.temp_frame = QFrame()
+        self.temp_frame.setStyleSheet("background-color: transparent;")
         self.temp_layout = QVBoxLayout()
         self.temp_frame.setLayout(self.temp_layout)
         

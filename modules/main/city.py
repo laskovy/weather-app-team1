@@ -14,21 +14,27 @@ class City(QFrame):
         self.weather = weather
         self.time = time
 
+        self.setFixedHeight(90)
+        self.setStyleSheet("background-color: transparent")
+
         main_layout = QHBoxLayout()
+        main_layout.setContentsMargins(15, 10, 15, 10)
+        main_layout.setSpacing(10)
 
 
         left_layout = QVBoxLayout()
+        main_layout.setSpacing(6)
 
         city_label = QLabel(self.city_name)
         time_label = QLabel(self.time)
         weather_label = QLabel(self.weather)
 
         city_label.setStyleSheet("color: white; font-size: 24px; font-family: Arial; background-color: transparent;")
-        city_label.setFixedSize(247, 28)
+        city_label.setFixedHeight(28)
         time_label.setStyleSheet("color: white; font-size: 12px; font-family: Arial; background-color: transparent;")
-        time_label.setFixedSize(247, 14)
+        time_label.setFixedHeight(14)
         weather_label.setStyleSheet("color: white; font-size: 12px; font-family: Arial; background-color: transparent;")
-        weather_label.setFixedSize(161, 14)
+        weather_label.setFixedHeight(14)
 
         left_layout.addWidget(city_label)
         left_layout.addWidget(time_label)
@@ -36,14 +42,15 @@ class City(QFrame):
 
         right_layout = QVBoxLayout()
         right_layout.setAlignment(Qt.AlignmentFlag.AlignRight)
+        right_layout.setSpacing(2)
         
         temp_label = QLabel(f"{self.temp}°C")
         range_label = QLabel(f"Min: {self.min_temp}°C  Max: {self.max_temp}°C")
 
         temp_label.setStyleSheet("color: white; font-size: 44px; font-family: Arial; background-color: transparent;")
-        temp_label.setFixedSize(67, 52)
+        temp_label.setFixedHeight(52)
         range_label.setStyleSheet("color: white; font-size: 12px; font-family: Arial; background-color: transparent;")
-        range_label.setFixedSize(98, 14)
+        range_label.setFixedHeight(14)
 
         right_layout.addWidget(temp_label)
         right_layout.addWidget(range_label)
@@ -51,5 +58,11 @@ class City(QFrame):
 
         main_layout.addLayout(left_layout)
         main_layout.addLayout(right_layout)
+
+        #divider = QFrame()
+        #divider.setFixedHeight(1)
+        #divider.setStyleSheet("background-color: rgba(255, 255, 255, 0.2);")
+
+        #right_layout.addWidget(divider)
 
         self.setLayout(main_layout)
