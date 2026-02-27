@@ -59,10 +59,4 @@ class City(QFrame):
         main_layout.addLayout(left_layout)
         main_layout.addLayout(right_layout)
 
-        #divider = QFrame()
-        #divider.setFixedHeight(1)
-        #divider.setStyleSheet("background-color: rgba(255, 255, 255, 0.2);")
-
-        #right_layout.addWidget(divider)
-
         self.setLayout(main_layout)

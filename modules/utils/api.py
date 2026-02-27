@@ -5,3 +5,11 @@ def get_data(city_name: str):
     if response.status_code == 200:
         return response.json()
     
+
+def get_weather(city_name: str):
+    response1 = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid=ec4dfccc065b0295409a1be58b213307&units=metric&lang=ua")
+    if response1.status_code == 200:
+        return response1.json()
+
+
+    
