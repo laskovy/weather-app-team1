@@ -9,7 +9,7 @@ class SidePanel(QFrame):
     def __init__(self):
         QFrame.__init__(self)
         self.setStyleSheet("""
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 0, 0, 0.1);
             border: 0
         """)
         # В стилях колір rgba - працює з прозорістю (4-ете число від 0 до 1)
@@ -25,7 +25,7 @@ class SidePanel(QFrame):
         self.content = QFrame()
         self.content.setLayout(self.vertical_layout)
 
-        cities = ["Дніпро", "Київ", "Братіслава", "Варшава", "Рим"]
+        cities = ["Dnipro", "Kyiv", "Bratislava", "Warsaw", "Rome, IT"]
         for city in cities:
             data = get_weather(city)
             if data:
@@ -47,35 +47,35 @@ class SidePanel(QFrame):
                 self.vertical_layout.addWidget(card)
                   
         
-        # card1 = City("Дніпро", "11", "0", "11", "Переважно хмарно", "15:24")
+        # card1 = City(data["name"], str(round(data["main"]["temp"])), str(round(data["main"]["temp_min"])), str(round(data["main"]["temp_max"])), data["weather"][0]["description"].capitalize(), time_now)
         # self.setStyleSheet("""
-        #     background-color: transparent);
+        #      background-color: transparent);
             
-        #     """)
+        #      """)
         # self.vertical_layout.addWidget(card1)
         
-        # card2 = City("Київ", "14", "0", "15", "Сонячно", "15:24")
+        # card2 = City(data["name"], str(round(data["main"]["temp"])), str(round(data["main"]["temp_min"])), str(round(data["main"]["temp_max"])), data["weather"][0]["description"].capitalize(), time_now)
         # self.setStyleSheet("""
-        #     background-color: transparent);
-        #     """)
+        #      background-color: transparent);
+        #      """)
         # self.vertical_layout.addWidget(card2)
         
-        # card3 = City("Братіслава", "9", "1", "10", "Подекуди хмарно місцями...", "14:24")
+        # card3 = City(data["name"], str(round(data["main"]["temp"])), str(round(data["main"]["temp_min"])), str(round(data["main"]["temp_max"])), data["weather"][0]["description"].capitalize(), time_now)
         # self.setStyleSheet("""
-        #     background-color: transparent);
-        #     """)
+        #      background-color: transparent);
+        #      """)
         # self.vertical_layout.addWidget(card3)
         
-        # card4 = City("Варшава", "15", "7", "8", "Хмарно", "14:24")
+        # card4 = City(data["name"], str(round(data["main"]["temp"])), str(round(data["main"]["temp_min"])), str(round(data["main"]["temp_max"])), data["weather"][0]["description"].capitalize(), time_now)
         # self.setStyleSheet("""
-        #     background-color: transparent);
-        #     """)
+        #      background-color: transparent);
+        #      """)
         # self.vertical_layout.addWidget(card4)
         
-        # card5 = City("Рим", "24", "16", "25", "Сонячно", "14:24")
+        # card5 = City(data["name"], str(round(data["main"]["temp"])), str(round(data["main"]["temp_min"])), str(round(data["main"]["temp_max"])), data["weather"][0]["description"].capitalize(), time_now)
         # self.setStyleSheet("""
-        #     background-color: transparent);
-        #     """)
+        #      background-color: transparent);
+        #      """)
         # self.vertical_layout.addWidget(card5)
 
         self.scroll_element.setWidget(self.content)

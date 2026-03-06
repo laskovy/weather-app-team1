@@ -30,7 +30,7 @@ class GraphicsInfo(QFrame):
         for count in range(8):
             temp = max_temp - count *5 
             text = QLabel(text=f"{temp}°")
-            text.setStyleSheet("background-color: transparent")
+            text.setStyleSheet("background-color: transparent; color: white;")
             self.temp_layout.addWidget(text)
         
         self.main_layout.addWidget(self.temp_frame)
