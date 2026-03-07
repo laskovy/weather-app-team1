@@ -5,7 +5,7 @@ import os
 
 
 class WeatherInfo(QFrame):
-    def __init__(self):
+    def __init__(self, data):
         QFrame.__init__(self)
 
         self.setFixedSize(390, 303)
@@ -19,19 +19,27 @@ class WeatherInfo(QFrame):
         main.setContentsMargins(25, 25, 25, 25)
         main.setSpacing(15)
 
-        city1 = QLabel("Ватикан")
-        city1.setStyleSheet("font-size: 44px; background-color: transparent;")
-        city1.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        temp = QLabel("14°")
-        temp.setStyleSheet("font-size: 74px; background-color: transparent;")
+        city = data["name"]
+        temp = round(data["main"]["temp"])
+        temp_min = round(data["main"]["temp_min"])
+        temp_max = round(data["main"]["temp_max"])
+        status = data["weather"][0]["description"].capitalize()
 
-        status = QLabel("Дощ")
-        status.setStyleSheet("font-size: 24px; background-color: transparent;")
-        status.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        minmax = QLabel("Макс: 15°   Мін: 1°")
-        minmax.setStyleSheet("font-size: 16px; background-color: transparent;")
+        city_label = QLabel(city)
+        city_label.setStyleSheet("font-size: 44px; background: transparent;")
+        city_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        temp_label = QLabel(f"{temp}°")
+        temp_label.setStyleSheet("font-size: 74px; background: transparent;")
+
+        status_label = QLabel(status)
+        status_label.setStyleSheet("font-size: 24px; background: transparent;")
+        status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        minmax = QLabel(f"Макс: {temp_max}°   Мін: {temp_min}°")
+        minmax.setStyleSheet("font-size: 16px; background: transparent;")
         minmax.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         
@@ -55,16 +63,16 @@ class WeatherInfo(QFrame):
         middle.addSpacing(5)
 
         middle.addWidget(weather_img, alignment=Qt.AlignmentFlag.AlignBottom)
-        middle.addWidget(temp, alignment=Qt.AlignmentFlag.AlignBottom)
+        middle.addWidget(temp_label, alignment=Qt.AlignmentFlag.AlignBottom)
         
         
 
-        main.addWidget(city1)
+        main.addWidget(city_label)
         main.addSpacing(10)
 
         main.addLayout(middle)   
 
-        main.addWidget(status)
+        main.addWidget(status_label)
         main.addWidget(minmax)
 
         main.addStretch()

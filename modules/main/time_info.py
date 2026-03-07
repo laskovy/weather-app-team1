@@ -1,7 +1,8 @@
 from PyQt6.QtWidgets import QFrame, QLabel, QVBoxLayout, QHBoxLayout
 from PyQt6.QtGui import QPixmap
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QTimer
 import os
+from datetime import datetime
 
 
 class TimeInfo(QFrame):
@@ -24,19 +25,19 @@ class TimeInfo(QFrame):
 
         top = QHBoxLayout()
 
-        day = QLabel("Понеділок")
-        day.setStyleSheet("font-size: 16px; background-color: transparent;")
+        self.day = QLabel()
+        self.day.setStyleSheet("font-size: 16px; background-color: transparent;")
 
-        date = QLabel("24.03.2025")
-        date.setStyleSheet("font-size: 24px; background-color: transparent;")
+        self.date = QLabel()
+        self.date.setStyleSheet("font-size: 24px; background-color: transparent;")
 
-        top.addWidget(day)
+        top.addWidget(self.day)
         top.addStretch()
-        top.addWidget(date)
+        top.addWidget(self.date)
 
-        time = QLabel("14:24")
-        time.setStyleSheet("font-size: 29px; background-color: transparent;")
-        time.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.time = QLabel()
+        self.time.setStyleSheet("font-size: 29px; background-color: transparent;")
+        self.time.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         
 
@@ -61,9 +62,23 @@ class TimeInfo(QFrame):
         clock_img.setFixedSize(168, 168)
 
 
-        time.setParent(clock_img)
-        time.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        time.setGeometry(0, 0, 168, 168)
+        self.time.setParent(clock_img)
+        self.time.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.time.setGeometry(0, 0, 168, 168)
 
         main.addWidget(clock_img, alignment=Qt.AlignmentFlag.AlignCenter)
         main.addStretch()
+
+        timer = QTimer(self)
+        timer.timeout.connect(self.update_datetime)
+        timer.start(1000)
+        self.update_datetime()
+
+    def update_datetime(self):
+        from datetime import datetime    
+
+        days = ["Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя"]
+
+        self.day.setText(days[datetime.now().weekday()])
+        self.date.setText(datetime.now().strftime("%d.%m.%Y"))
+        self.time.setText(datetime.now().strftime("%H:%M"))

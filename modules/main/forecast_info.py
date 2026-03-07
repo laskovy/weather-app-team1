@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QFrame, QScrollArea, QHBoxLayout
 from PyQt6.QtCore import Qt
 from .forecast_item import ForecastItem
+from ..utils.api import get_data
 
 
 class ForecastInfo(QFrame):
@@ -23,17 +24,24 @@ class ForecastInfo(QFrame):
 
         self.forecast_layout = QHBoxLayout()
         self.scroll_frame.setLayout(self.forecast_layout)
+        
+        forecast = get_data("Dnipro")
+        
+        
 
-        start_hour = 14
-        temps = [11, 11, 10, 8, 5, 4, 3, 3, 0, 0, 0, 0]
+        for i in range(12):
+            data = forecast["list"][i]
+            hour = data["dt_txt"][11:13]
+            temp = round(data["main"]["temp"])
 
-        for i in range(len(temps)):
-            hour = (start_hour + i) % 24
-            temp = temps[i]
-            if hour < 18:
+            icon_code = data["weather"][0]["icon"]
+
+            if "d" in icon_code:
                 icon_name = "day.png"
             else:
                 icon_name = "afternoon.png"
+        
+        
         
             item = ForecastItem(
             time_text = str(hour),

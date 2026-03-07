@@ -4,6 +4,7 @@ from .graphics_info import GraphicsInfo
 from .header import Header
 from .weather_info import WeatherInfo
 from .time_info import TimeInfo
+from modules.utils.api import get_weather
 
 class MainInfo(QFrame):
     def __init__(self):
@@ -25,7 +26,8 @@ class MainInfo(QFrame):
         self.horizontal_layout.setContentsMargins(0, 0, 0, 0)
         self.main_container.setLayout(self.horizontal_layout)
 
-        self.weather_info = WeatherInfo()
+        data = get_weather("Дніпро")
+        self.weather_info = WeatherInfo(data)
         self.horizontal_layout.addWidget(self.weather_info)
         self.time_info = TimeInfo()
         self.horizontal_layout.addWidget(self.time_info)
