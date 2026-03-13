@@ -35,11 +35,8 @@ class ForecastInfo(QFrame):
             temp = round(data["main"]["temp"])
 
             icon_code = data["weather"][0]["icon"]
-
-            if "d" in icon_code:
-                icon_name = "day.png"
-            else:
-                icon_name = "afternoon.png"
+            icon_name = f"{icon_code}.svg"
+            
         
         
         

@@ -1,7 +1,9 @@
 from PyQt6.QtWidgets import QFrame, QLabel, QVBoxLayout, QHBoxLayout
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtGui import QPixmap, QPainter
 from PyQt6.QtCore import Qt
 import os
+from PyQt6.QtSvgWidgets import QSvgWidget
+from PyQt6.QtSvg import QSvgRenderer
 
 
 class WeatherInfo(QFrame):
@@ -25,6 +27,7 @@ class WeatherInfo(QFrame):
         temp_min = round(data["main"]["temp_min"])
         temp_max = round(data["main"]["temp_max"])
         status = data["weather"][0]["description"].capitalize()
+        icon_code = data["weather"][0]["icon"]
 
 
         city_label = QLabel(city)
@@ -48,13 +51,25 @@ class WeatherInfo(QFrame):
         weather_img.setFixedSize(160, 160)
         weather_img.setStyleSheet("background-color: transparent;")
 
+        icon_name = f"{icon_code}.svg"
         base_dir = os.path.dirname(os.path.abspath(__file__))
-        path = os.path.join(base_dir, "..", "..", "images", "rain.png")
+        path = os.path.join(base_dir, "..", "..", "icons", "light", icon_name)
+
+        renderer = QSvgRenderer(path)
+        pixmap = QPixmap(path)
+        pixmap.scaled(220, 220, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+        pixmap.fill(Qt.GlobalColor.transparent)
+
+        painter = QPainter(pixmap)
+        renderer.render(painter)
+        painter.end()
 
         img = QPixmap(path)
         img = img.scaled(140, 140)
 
-        weather_img.setPixmap(img)
+        weather_img = QLabel()
+        weather_img.setPixmap(pixmap)
+        
 
         
 

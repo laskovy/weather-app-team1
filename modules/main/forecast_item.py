@@ -5,7 +5,7 @@ from PyQt6.QtGui import QPixmap
 
 
 class ForecastItem(QFrame):
-    def __init__(self, time_text="14", temp_text="11", icon_name="day.png"):
+    def __init__(self, time_text="14", temp_text="11", icon_name="01d.png"):
         QFrame.__init__(self)
 
         self.setFixedSize(45, 72)
@@ -26,7 +26,8 @@ class ForecastItem(QFrame):
         self.icon_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         base_dir = os.path.dirname(os.path.abspath(__file__))
-        path = os.path.join(base_dir, "..", "..", "images", icon_name)
+        path = os.path.join(base_dir, "..", "..", "icons", "light", icon_name)
+        
 
         self.icon_label.setPixmap(QPixmap(path))
         self.main_layout.addWidget(self.icon_label)
