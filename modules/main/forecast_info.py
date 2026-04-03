@@ -5,7 +5,7 @@ from ..utils.api import get_data
 
 
 class ForecastInfo(QFrame):
-    def __init__(self):
+    def __init__(self, city_name):
         QFrame.__init__(self)
         self.main_layout = QHBoxLayout()
         self.setLayout(self.main_layout)
@@ -24,11 +24,9 @@ class ForecastInfo(QFrame):
 
         self.forecast_layout = QHBoxLayout()
         self.scroll_frame.setLayout(self.forecast_layout)
-        
-        forecast = get_data("Dnipro")
-        
-        
 
+        forecast = get_data(city_name)
+               
         for i in range(12):
             data = forecast["list"][i]
             hour = data["dt_txt"][11:13]

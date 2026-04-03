@@ -13,6 +13,7 @@ class City(QFrame):
         self.max_temp = max_t
         self.weather = weather
         self.time = time
+        self.on_click = None
 
         self.setFixedHeight(90)
         self.setStyleSheet("background-color: transparent")
@@ -61,6 +62,7 @@ class City(QFrame):
 
         self.setLayout(main_layout)
     
-    def mousePressEvent(self, event):
-        if hasattr(self, "on_click"):
+    def mousePressEvent(self, event): 
+        if self.on_click:
             self.on_click(self)
+        super().mousePressEvent(event)

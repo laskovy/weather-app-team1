@@ -69,9 +69,9 @@ class TimeInfo(QFrame):
         main.addWidget(clock_img, alignment=Qt.AlignmentFlag.AlignCenter)
         main.addStretch()
 
-        timer = QTimer(self)
-        timer.timeout.connect(self.update_datetime)
-        timer.start(1000)
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_datetime)
+        self.timer.start(1000)
         self.update_datetime()
 
     def update_datetime(self):

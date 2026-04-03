@@ -28,11 +28,22 @@ class Window(QMainWindow):
             x1: 0, y1: 1, x2: 1, y2: 0,
             stop: 0 #8A2BE2, stop: 1 #191970
         )""")
-        self.main = MainInfo()
+        for card in self.side_panel.cards:  
+            card.on_click = self.change_city
+
+        self.main = MainInfo("Dnipro")
         self.content_layout.addWidget(self.main)
         self.content_layout.setContentsMargins(0, 0, 20, 0)
         self.content_layout.setSpacing(20)
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+    def change_city(self, selected_card):  
+        self.side_panel.select_card(selected_card)  
+        city_name = selected_card.city_name
+        self.content_layout.removeWidget(self.main)  
+        self.main.deleteLater()  
+
+        self.main = MainInfo(city_name)  
+        self.content_layout.addWidget(self.main)
         
         # В класі вікна, щоб сховати стандартну панель - self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
         # Qt - головний клас налаштувань (з QtCore)

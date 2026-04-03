@@ -1,9 +1,9 @@
 from PyQt6.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QLabel
-from ..utils import get_temp
+from ..utils.get_temp import get_temp
 from PyQt6.QtCore import Qt
 
 class GraphicsInfo(QFrame):
-    def __init__(self):
+    def __init__(self, city_name):
         QFrame.__init__(self)
         self.setFixedSize(790, 197)
         self.setStyleSheet("background-color: rgba(0, 0, 0, 0.2)")
@@ -11,7 +11,7 @@ class GraphicsInfo(QFrame):
         self.main_layout.setAlignment(Qt.AlignmentFlag.AlignBottom)
         # layout.setAlignment(Qt.AlignmentFlag) - вирівнювання елементів (Qt з QtCore)
         self.setLayout(self.main_layout)
-        min_visible_temp, list_height = get_temp()
+        min_visible_temp, list_height = get_temp(city_name)
         for height in list_height:
             frame = QFrame()
             frame.setFixedHeight(height)

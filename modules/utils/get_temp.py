@@ -1,7 +1,7 @@
 from .api import get_data 
 
-def get_temp():
-    data = get_data("Dnipro")
+def get_temp(city_name):
+    data = get_data(city_name)
     list_weather = data.get("list")
     min_temp = 100
     list_temp = []

@@ -4,10 +4,11 @@ from PyQt6.QtCore import Qt
 import os
 from PyQt6.QtSvgWidgets import QSvgWidget
 from PyQt6.QtSvg import QSvgRenderer
+from modules.utils.api import get_weather
 
 
 class WeatherInfo(QFrame):
-    def __init__(self, data):
+    def __init__(self, city_name):
         QFrame.__init__(self)
 
         self.setFixedSize(390, 303)
@@ -16,6 +17,7 @@ class WeatherInfo(QFrame):
             border-radius: 10px;
             color: white;
         """)
+        data = get_weather(city_name)
 
         main = QVBoxLayout(self)
         main.setContentsMargins(25, 25, 25, 25)
