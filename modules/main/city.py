@@ -5,7 +5,7 @@ from PyQt6.QtCore import Qt
 
 
 class City(QFrame):
-    def __init__(self, city_name, temp, min_t, max_t, weather, time):
+    def __init__(self, city_name, temp, min_t, max_t, weather, time, timezone_offset, icon):
         QFrame.__init__(self)
         self.city_name = city_name
         self.temp = temp
@@ -14,6 +14,8 @@ class City(QFrame):
         self.weather = weather
         self.time = time
         self.on_click = None
+        self.timezone_offset = timezone_offset
+        self.icon = icon
 
         self.setFixedHeight(90)
         self.setStyleSheet("background-color: transparent")
@@ -27,18 +29,18 @@ class City(QFrame):
         main_layout.setSpacing(6)
 
         city_label = QLabel(self.city_name)
-        time_label = QLabel(self.time)
+        self.time_label = QLabel(self.time)
         weather_label = QLabel(self.weather)
 
         city_label.setStyleSheet("color: white; font-size: 24px; font-family: Arial; background-color: transparent;")
         city_label.setFixedHeight(28)
-        time_label.setStyleSheet("color: white; font-size: 12px; font-family: Arial; background-color: transparent;")
-        time_label.setFixedHeight(14)
+        self.time_label.setStyleSheet("color: white; font-size: 12px; font-family: Arial; background-color: transparent;")
+        self.time_label.setFixedHeight(14)
         weather_label.setStyleSheet("color: white; font-size: 12px; font-family: Arial; background-color: transparent;")
         weather_label.setFixedHeight(14)
 
         left_layout.addWidget(city_label)
-        left_layout.addWidget(time_label)
+        left_layout.addWidget(self.time_label)
         left_layout.addWidget(weather_label)
 
         right_layout = QVBoxLayout()
@@ -66,3 +68,12 @@ class City(QFrame):
         if self.on_click:
             self.on_click(self)
         super().mousePressEvent(event)
+
+    def update_time(self):
+        from datetime import datetime, timezone, timedelta
+
+        utc_now = datetime.now(timezone.utc)
+        city_time = utc_now + timedelta(seconds=self.timezone_offset)
+        self.time = city_time.strftime("%H:%M")
+
+        self.time_label.setText(self.time)

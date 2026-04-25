@@ -1,9 +1,13 @@
 from PyQt6.QtWidgets import QFrame, QLabel, QPushButton, QLineEdit, QHBoxLayout
+from PyQt6.QtCore import pyqtSignal
+
 
 
 class Header(QFrame):
+    add_city_signal = pyqtSignal(str)
     def __init__(self):
         QFrame.__init__(self)
+          
 
         self.setFixedSize(790, 36)
 
@@ -52,3 +56,10 @@ class Header(QFrame):
         self.layout.addWidget(self.input)
 
         self.setLayout(self.layout)
+
+        self.add_btn.clicked.connect(self.handle_add_city)
+    def handle_add_city(self):
+        city_name = self.input.text().strip()
+        if city_name:
+            self.add_city_signal.emit(city_name)
+            self.input.clear()

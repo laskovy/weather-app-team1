@@ -5,6 +5,7 @@ from .header import Header
 from .weather_info import WeatherInfo
 from .time_info import TimeInfo
 from modules.utils.api import get_weather
+from PyQt6.QtCore import QTimer
 
 class MainInfo(QFrame):
     def __init__(self, city_name="Dnipro"):
@@ -32,6 +33,7 @@ class MainInfo(QFrame):
         self.horizontal_layout.addWidget(self.weather_info)
         self.time_info = TimeInfo()
         self.horizontal_layout.addWidget(self.time_info)
+        
 
         self.main_layout.addWidget(self.main_container)
 
